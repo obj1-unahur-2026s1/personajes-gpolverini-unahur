@@ -1,0 +1,55 @@
+import src.armas.*
+
+describe "Ballesta | Verificar carga inicial" {
+    test "Given: ballesta recién creada | When: consultamos estaCargada() | Then: debería retornar true" {
+        assert.that(ballesta.estaCargada())
+    }
+}
+
+describe "Ballesta | Verificar potencia" {
+    test "Given: ballesta recién creada | When: consultamos potencia() | Then: debería retornar 4" {
+        assert.equals(4, ballesta.potencia())
+    }
+}
+
+describe "Ballesta | Verificar uso consume una flecha" {
+    test "Given: ballesta cargada | When: usamos la ballesta una vez | Then: debería seguir cargada" {
+        ballesta.usar()
+        assert.that(ballesta.estaCargada())
+    }
+}
+
+describe "Ballesta | Verificar descarga después de múltiples usos" {
+    test "Given: ballesta con 10 flechas | When: usamos la ballesta 10 veces | Then: debería quedar descargada" {
+        ballesta.usar()
+        ballesta.usar()
+        ballesta.usar()
+        ballesta.usar()
+        ballesta.usar()
+        ballesta.usar()
+        ballesta.usar()
+        ballesta.usar()
+        ballesta.usar()
+        ballesta.usar()
+        assert.that(!ballesta.estaCargada())
+    }
+}
+
+describe "Jabalina | Verificar carga inicial" {
+    test "Given: jabalina recién creada | When: consultamos estaCargada() | Then: debería retornar true" {
+        assert.that(jabalina.estaCargada())
+    }
+}
+
+describe "Jabalina | Verificar potencia" {
+    test "Given: jabalina recién creada | When: consultamos potencia() | Then: debería retornar 30" {
+        assert.equals(30, jabalina.potencia())
+    }
+}
+
+describe "Jabalina | Verificar descarga después de un uso" {
+    test "Given: jabalina cargada | When: usamos la jabalina una vez | Then: debería quedar descargada" {
+        jabalina.usar()
+        assert.that(!jabalina.estaCargada())
+    }
+}

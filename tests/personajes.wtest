@@ -1,0 +1,73 @@
+import src.personajes.*
+import src.armas.*
+import src.elementos.*
+
+describe "Floki | Verificar ataque con arma cargada" {
+    test "Given: floki con ballesta cargada y castillo con defensa 150 | When: floki encuentra castillo | Then: castillo debería tener defensa 146" {
+        floki.cambiarArma(ballesta)
+        floki.encontrar(castillo)
+        assert.equals(146, castillo.nivelDefensa())
+    }
+}
+
+describe "Floki | Verificar no ataca con arma descargada" {
+    test "Given: floki con ballesta descargada y castillo con defensa 150 | When: floki encuentra castillo | Then: castillo debería mantener defensa 150" {
+        floki.cambiarArma(ballesta)
+        (1..10).forEach({ _ => ballesta.usar() })
+        floki.encontrar(castillo)
+        assert.equals(150, castillo.nivelDefensa())
+    }
+}
+
+describe "Floki | Verificar ataque con jabalina" {
+    test "Given: floki con jabalina cargada y castillo con defensa 150 | When: floki encuentra castillo | Then: castillo debería tener defensa 120" {
+        floki.cambiarArma(jabalina)
+        floki.encontrar(castillo)
+        assert.equals(120, castillo.nivelDefensa())
+    }
+}
+
+describe "Mario | Verificar trabajo en elemento" {
+    test "Given: mario y castillo con defensa 150 | When: mario encuentra castillo | Then: castillo debería tener defensa 170" {
+        mario.encontrar(castillo)
+        assert.equals(170, castillo.nivelDefensa())
+    }
+}
+
+describe "Mario | Verificar felicidad por altura del último elemento" {
+    test "Given: mario sin valor | When: mario encuentra castillo (altura 20) | Then: mario debería ser feliz" {
+        mario.encontrar(castillo)
+        assert.that(mario.esFeliz())
+    }
+}
+
+describe "Mario | Verificar felicidad por valor acumulado" {
+    test "Given: mario sin valor | When: mario encuentra castillo 2 veces | Then: mario debería ser feliz" {
+        mario.encontrar(castillo)
+        mario.encontrar(castillo)
+        assert.that(mario.esFeliz())
+    }
+}
+
+describe "Mario | Verificar no es feliz sin condiciones" {
+    test "Given: mario sin valor | When: mario encuentra aurora (altura 1) | Then: mario no debería ser feliz" {
+        mario.encontrar(aurora)
+        assert.that(!mario.esFeliz())
+    }
+}
+
+describe "Mario | Verificar no es feliz con valor bajo y altura baja" {
+    test "Given: mario con valor 30 y altura 5 | When: consultamos esFeliz() | Then: debería retornar false" {
+        mario.encontrar(aurora)
+        mario.encontrar(aurora)
+        assert.that(!mario.esFeliz())
+    }
+}
+
+describe "Floki | Verificar arma se usa al atacar" {
+    test "Given: floki con ballesta cargada | When: floki encuentra castillo | Then: ballesta debería tener menos flechas" {
+        floki.cambiarArma(ballesta)
+        floki.encontrar(castillo)
+        assert.that(ballesta.estaCargada())
+    }
+}

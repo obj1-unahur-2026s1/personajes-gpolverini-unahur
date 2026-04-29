@@ -1,0 +1,124 @@
+import src.elementos.*
+
+describe "Castillo | Verificar defensa inicial" {
+    test "Given: castillo recién creado | When: consultamos nivelDefensa() | Then: debería retornar 150" {
+        assert.equals(150, castillo.nivelDefensa())
+    }
+}
+
+describe "Castillo | Verificar valor" {
+    test "Given: castillo con defensa 150 | When: consultamos valor() | Then: debería retornar 30" {
+        assert.equals(30, castillo.valor())
+    }
+}
+
+describe "Castillo | Verificar ataque reduce defensa" {
+    test "Given: castillo con defensa 150 | When: recibe ataque de potencia 30 | Then: defensa debería ser 120" {
+        castillo.recibeAtaque(30)
+        assert.equals(120, castillo.nivelDefensa())
+    }
+}
+
+describe "Castillo | Verificar defensa no baja de 0" {
+    test "Given: castillo con defensa 150 | When: recibe ataque de potencia 200 | Then: defensa debería ser 0" {
+        castillo.recibeAtaque(200)
+        assert.equals(0, castillo.nivelDefensa())
+    }
+}
+
+describe "Castillo | Verificar trabajo aumenta defensa" {
+    test "Given: castillo con defensa 150 | When: recibe trabajo | Then: defensa debería ser 170" {
+        castillo.recibeTrabajo()
+        assert.equals(170, castillo.nivelDefensa())
+    }
+}
+
+describe "Castillo | Verificar defensa no supera tope" {
+    test "Given: castillo con defensa 192 | When: recibe trabajo | Then: defensa debería ser 200" {
+        castillo.recibeAtaque(150 - 192)
+        castillo.recibeTrabajo()
+        assert.equals(200, castillo.nivelDefensa())
+    }
+}
+
+describe "Aurora | Verificar viva inicial" {
+    test "Given: aurora recién creada | When: consultamos estaViva() | Then: debería retornar true" {
+        assert.that(aurora.estaViva())
+    }
+}
+
+describe "Aurora | Verificar valor" {
+    test "Given: aurora recién creada | When: consultamos valor() | Then: debería retornar 15" {
+        assert.equals(15, aurora.valor())
+    }
+}
+
+describe "Aurora | Verificar muere con ataque fuerte" {
+    test "Given: aurora viva | When: recibe ataque de potencia 10 | Then: debería estar muerta" {
+        aurora.recibeAtaque(10)
+        assert.that(!aurora.estaViva())
+    }
+}
+
+describe "Aurora | Verificar muere exactamente en límite" {
+    test "Given: aurora viva | When: recibe ataque de potencia 11 | Then: debería estar muerta" {
+        aurora.recibeAtaque(11)
+        assert.that(!aurora.estaViva())
+    }
+}
+
+describe "Aurora | Verificar sobrevive ataque débil" {
+    test "Given: aurora viva | When: recibe ataque de potencia 9 | Then: debería estar viva" {
+        aurora.recibeAtaque(9)
+        assert.that(aurora.estaViva())
+    }
+}
+
+describe "Aurora | Verificar trabajo no afecta" {
+    test "Given: aurora viva | When: recibe trabajo | Then: debería seguir viva" {
+        aurora.recibeTrabajo()
+        assert.that(aurora.estaViva())
+    }
+}
+
+describe "Tipa | Verificar altura inicial" {
+    test "Given: tipa recién creada | When: consultamos altura() | Then: debería retornar 8" {
+        assert.equals(8, tipa.altura())
+    }
+}
+
+describe "Tipa | Verificar valor" {
+    test "Given: tipa con altura 8 | When: consultamos valor() | Then: debería retornar 16" {
+        assert.equals(16, tipa.valor())
+    }
+}
+
+describe "Tipa | Verificar ataque no afecta" {
+    test "Given: tipa con altura 8 | When: recibe ataque de potencia 30 | Then: altura debería seguir siendo 8" {
+        tipa.recibeAtaque(30)
+        assert.equals(8, tipa.altura())
+    }
+}
+
+describe "Tipa | Verificar trabajo aumenta altura" {
+    test "Given: tipa con altura 8 | When: recibe trabajo | Then: altura debería ser 9" {
+        tipa.recibeTrabajo()
+        assert.equals(9, tipa.altura())
+    }
+}
+
+describe "Tipa | Verificar valor aumenta con altura" {
+    test "Given: tipa con altura 9 | When: consultamos valor() | Then: debería retornar 18" {
+        tipa.recibeTrabajo()
+        assert.equals(18, tipa.valor())
+    }
+}
+
+describe "Tipa | Verificar crecimiento acumulativo" {
+    test "Given: tipa con altura 8 | When: recibe trabajo 3 veces | Then: altura debería ser 11" {
+        tipa.recibeTrabajo()
+        tipa.recibeTrabajo()
+        tipa.recibeTrabajo()
+        assert.equals(11, tipa.altura())
+    }
+}

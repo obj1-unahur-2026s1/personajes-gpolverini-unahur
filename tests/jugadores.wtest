@@ -1,0 +1,34 @@
+import src.jugadores.*
+import src.personajes.*
+import src.elementos.*
+
+describe "Luisa | Verificar aparición con floki activo" {
+    test "Given: luisa con floki activo y castillo con defensa 150 | When: aparece castillo | Then: castillo debería recibir ataque de floki" {
+        luisa.aparece(castillo)
+        assert.equals(146, castillo.nivelDefensa())
+    }
+}
+
+describe "Luisa | Verificar aparición con mario activo" {
+    test "Given: luisa con mario activo y castillo con defensa 150 | When: aparece castillo | Then: mario debería ser feliz" {
+        luisa.cambiarPersonaje(mario)
+        luisa.aparece(castillo)
+        assert.that(mario.esFeliz())
+    }
+}
+
+describe "Luisa | Verificar múltiples apariciones con mario" {
+    test "Given: luisa con mario activo | When: aparecen castillo y tipa | Then: mario debería ser feliz" {
+        luisa.cambiarPersonaje(mario)
+        luisa.aparece(castillo)
+        luisa.aparece(tipa)
+        assert.that(mario.esFeliz())
+    }
+}
+
+describe "Luisa | Verificar nace con floki como personaje activo" {
+    test "Given: luisa recién creada | When: aparece castillo sin cambiar personaje | Then: castillo debería recibir ataque de floki" {
+        luisa.aparece(castillo)
+        assert.equals(146, castillo.nivelDefensa())
+    }
+}
